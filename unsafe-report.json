@@ -1,0 +1,39 @@
+{
+  "findings": [
+    {
+      "rule_id": "GHA002",
+      "severity": "critical",
+      "path": ".github/workflows/ci.yml",
+      "line": 4,
+      "message": "Replace write-all with the smallest explicit permissions map required by the workflow."
+    },
+    {
+      "rule_id": "GHA003",
+      "severity": "high",
+      "path": ".github/workflows/ci.yml",
+      "line": 3,
+      "message": "Review pull_request_target carefully; it runs with base-repository privileges on untrusted pull requests."
+    },
+    {
+      "rule_id": "GHA004",
+      "severity": "critical",
+      "path": ".github/workflows/ci.yml",
+      "line": 10,
+      "message": "Do not interpolate untrusted pull-request text directly into a shell script; pass it through an environment variable."
+    },
+    {
+      "rule_id": "GHA005",
+      "severity": "critical",
+      "path": ".github/workflows/ci.yml",
+      "line": 11,
+      "message": "Do not pipe an unverified remote response directly into a shell; download, authenticate, and execute a pinned artifact separately."
+    },
+    {
+      "rule_id": "GHA001",
+      "severity": "high",
+      "path": ".github/workflows/ci.yml",
+      "line": 9,
+      "message": "Pin actions/checkout to a full 40-character commit SHA instead of v4."
+    }
+  ]
+}

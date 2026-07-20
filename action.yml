@@ -1,0 +1,41 @@
+name: Workflow Guard Audit
+description: Deterministically audits GitHub Actions workflows for common permission and supply-chain risks without sending repository data anywhere.
+author: Charles Connelly and Alfred
+branding:
+  icon: shield
+  color: gray-dark
+inputs:
+  path:
+    description: Repository root to audit
+    required: false
+    default: .
+  fail-on-findings:
+    description: Return a failing exit code when findings exist
+    required: false
+    default: "false"
+  report:
+    description: Markdown report path
+    required: false
+    default: workflow-guard-report.md
+outputs:
+  findings:
+    description: Number of findings
+    value: ${{ steps.audit.outputs.findings }}
+  report:
+    description: Markdown report path
+    value: ${{ steps.audit.outputs.report }}
+runs:
+  using: composite
+  steps:
+    - id: audit
+      shell: bash
+      env:
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_FAIL: ${{ inputs.fail-on-findings }}
+        INPUT_REPORT: ${{ inputs.report }}
+      run: |
+        args=(--root "$INPUT_PATH" --report "$INPUT_REPORT")
+        if [[ "$INPUT_FAIL" == "true" ]]; then
+          args+=(--fail-on-findings)
+        fi
+        python "${{ github.action_path }}/src/run_action.py" "${args[@]}"

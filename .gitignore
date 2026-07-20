@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+workflow-guard-report.md
+workflow-guard-report.json
