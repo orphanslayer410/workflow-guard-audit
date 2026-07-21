@@ -30,7 +30,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: <OWNER>/workflow-guard-action@<PINNED_40_CHARACTER_COMMIT_SHA>
+      - uses: orphanslayer410/workflow-guard-audit@2e3629141338e3d0168c042a83d369f337d4767e # v1.0.0
         with:
           fail-on-findings: "true"
 ```
