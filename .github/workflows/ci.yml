@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Unsafe fixture detects all five rules
+        run: |
+          python src/run_action.py --root tests/fixtures/unsafe --report /tmp/unsafe.md --json /tmp/unsafe.json
+          python -c "import json; d=json.load(open('/tmp/unsafe.json')); assert {x['rule_id'] for x in d['findings']} == {'GHA001','GHA002','GHA003','GHA004','GHA005'}"
+      - name: Safe fixture has no findings
+        run: |
+          python src/run_action.py --root tests/fixtures/safe --report /tmp/safe.md --json /tmp/safe.json --fail-on-findings
+          python -c "import json; assert json.load(open('/tmp/safe.json'))['findings'] == []"
