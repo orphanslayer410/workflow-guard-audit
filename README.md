@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@<PINNED_40_CHARACTER_COMMIT_SHA>
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: <OWNER>/workflow-guard-action@<PINNED_40_CHARACTER_COMMIT_SHA>
         with:
           fail-on-findings: "true"
