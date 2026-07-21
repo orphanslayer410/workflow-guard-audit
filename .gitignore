@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 workflow-guard-report.md
 workflow-guard-report.json
+self-audit.md
+self-audit.json
